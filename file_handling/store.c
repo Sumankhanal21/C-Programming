@@ -1,10 +1,8 @@
-/*Write a program to store the record of only those students whose semester is 1
-in student.txt.-*/
+/* Write a program to display the record of only those students whose roll number is
+less than 5 in student.txt.Use EOF to determine the end of file.*/
 
 #include <stdio.h>
 #include <stdlib.h>
-
-#define MAX_STUDENTS 4
 
 struct Student {
     int roll_no;
@@ -15,57 +13,23 @@ struct Student {
 };
 
 int main() {
-    struct Student students[MAX_STUDENTS];
-    int n;
-
-    FILE *fp = fopen("C:\\Users\\user\\Documents\\student.txt", "w"); 
+    struct Student s;
+    FILE *fp = fopen("C:\\Users\\user\\Documents\\output-6-2.txt", "r");
 
     if (fp == NULL) {
-        printf("Error opening file!\n");
+        printf("Error opening file! Make sure student.txt exists.\n");
         return 1;
     }
 
-    
-    printf("Enter the number of students (max %d): ", MAX_STUDENTS);
-    scanf("%d", &n);
-    getchar(); 
-
-    for (int i = 0; i < n; i++) {
-        printf("\nEnter details for student %d:\n", i + 1);
-
-        printf("Roll Number: ");
-        scanf("%d", &students[i].roll_no);
-        getchar(); 
-        printf("Name: ");
-        fgets(students[i].name, sizeof(students[i].name), stdin);
-
-        printf("Phone Number: ");
-        fgets(students[i].phone, sizeof(students[i].phone), stdin);
-
-        printf("Address: ");
-        fgets(students[i].address, sizeof(students[i].address), stdin);
-
-        printf("Semester: ");
-        scanf("%d", &students[i].semester);
-        getchar();
-    }
+    printf("\n--- Students with Roll Numbers Less Than 5 ---\n\n");
 
     
-    fprintf(fp, "Students in Semester 1:\n\n");
-    int count = 0;
-    for (int i = 0; i < n; i++) {
-        if (students[i].semester == 1) {
-            fprintf(fp, "Roll No: %d\nName: %sPhone: %sAddress: %sSemester: %d\n\n",
-                    students[i].roll_no, students[i].name, students[i].phone, students[i].address, students[i].semester);
-            count++;
+    while (fscanf(fp, "Roll No: %d\n", &s.roll_no) != EOF) {
+       
+        
+        if (s.roll_no < 5) {
+            printf("Roll No: %d\n%s%s%sSemester: %d\n\n", s.roll_no, s.name, s.phone, s.address, s.semester);
         }
-    }
-
-    if (count == 0) {
-        fprintf(fp, "No students found in Semester 1.\n");
-        printf("\nNo students in Semester 1. Nothing saved in student.txt.\n");
-    } else {
-        printf("\nStudent records (Semester 1) saved successfully in student.txt!\n");
     }
 
     fclose(fp); 

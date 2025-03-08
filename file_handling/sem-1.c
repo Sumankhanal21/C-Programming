@@ -18,7 +18,7 @@ int main() {
     struct Student students[MAX_STUDENTS];
     int n;
 
-    FILE *fp = fopen("C:\\Users\\user\\Documents\\student.txt", "w"); 
+    FILE *fp = fopen("C:\\Users\\user\\Downloads\\data.txt", "w");
 
     if (fp == NULL) {
         printf("Error opening file!\n");
